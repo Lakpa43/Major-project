@@ -16,10 +16,10 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("/")
-    public String viewHomePage(Model model) {
+    @GetMapping("/student")
+    public String studentPage(Model model) {
         model.addAttribute("listStudents", studentService.getAllStudents());
-        return "index";
+        return "student";
     }
 
     @GetMapping("/newStudentForm")
@@ -29,10 +29,10 @@ public class StudentController {
         return "new_student";
     }
 
-    @PostMapping("saveStudent")
+    @PostMapping("/saveStudent")
     public String saveStudent(@ModelAttribute("student") Student student) {
         studentService.saveStudent(student);
-        return "redirect:/";
+        return "redirect:student";
     }
 
     @GetMapping("/editStudentForm/{id}")
@@ -45,6 +45,6 @@ public class StudentController {
     @GetMapping("/deleteStudent/{id}")
     public String deleteStudent(@PathVariable(value = "id") int id) {
         this.studentService.deleteStudentById(id);
-        return "redirect:/";
+        return "redirect:student";
     }
 }

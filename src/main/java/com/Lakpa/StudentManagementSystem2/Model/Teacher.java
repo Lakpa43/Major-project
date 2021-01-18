@@ -4,26 +4,19 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "student")
-public class Student {
+@Table(name = "teacher")
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "course")
     private String course;
-    @Column(name = "fee")
-    private int fee;
 
-    @ManyToMany
-    @JoinTable(name = "students_teachers",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
-    private List<Teacher> teachers;
+    @ManyToMany(mappedBy = "teachers")
+    private List<Student> students;
 
     public int getId() {
         return id;
@@ -57,19 +50,11 @@ public class Student {
         this.course = course;
     }
 
-    public int getFee() {
-        return fee;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setFee(int fee) {
-        this.fee = fee;
-    }
-
-    public List<Teacher> getTeachers() {
-        return teachers;
-    }
-
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }
